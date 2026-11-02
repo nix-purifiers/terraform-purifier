@@ -1,0 +1,38 @@
+{
+  "contentHash": "7127f3a68303194067c11225db38e5f9e93d3dbae6e3aa8c341359b2ebe91e8e",
+  "inputs": {
+    "configuration": {
+      "main.tf": "c203d565569390dd1e2dd7a6bfbc2190e65268b1e5217bff0b795e043d6d961c",
+      "tests/check.tftest.hcl": "e67fbb101311ca7fd855a0e9c59e1b4fd3f80ef31438de02fcca216e36b0040c"
+    },
+    "native": "25047cd9332df550371329fa702d898c50e98065ec45e9aa76782c9ddf3078e9"
+  },
+  "moduleKeys": [
+    "label"
+  ],
+  "modules": {
+    "label": {
+      "hash": "sha256-tnwcd2nTLxkmljJDpV4MZMycAj+xALjcPudn5bSCUko=",
+      "kind": "git",
+      "rev": "38364d79c1082de13373666252e1276975919543",
+      "source": "git::https://github.com/cloudposse/terraform-null-label.git?ref=38364d79c1082de13373666252e1276975919543",
+      "subdir": "",
+      "url": "https://github.com/cloudposse/terraform-null-label.git"
+    }
+  },
+  "platformHashesPrepared": true,
+  "providers": {
+    "registry.terraform.io/hashicorp/random": {
+      "linux_amd64": {
+        "hashIndex": 9,
+        "url": "https://releases.hashicorp.com/terraform-provider-random/3.9.1/terraform-provider-random_3.9.1_linux_amd64.zip"
+      },
+      "linux_arm64": {
+        "hashIndex": 13,
+        "url": "https://releases.hashicorp.com/terraform-provider-random/3.9.1/terraform-provider-random_3.9.1_linux_arm64.zip"
+      }
+    }
+  },
+  "toolVersion": "1.17.0",
+  "version": 1
+}

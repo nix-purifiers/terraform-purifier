@@ -1,0 +1,17 @@
+--- a/internal/command/meta_dependencies.go
++++ b/internal/command/meta_dependencies.go
+@@ -25,7 +25,13 @@
+ //
+ // We always expect to find this file in the current working directory
+ // because that should also be the root module directory.
+-const dependencyLockFilename = depsfile.LockFilePath // .terraform.lock.hcl
++// The purifier wrapper selects an external native lock only when requested.
++var dependencyLockFilename = func() string {
++	if filename := os.Getenv("NIX_PURIFIER_NATIVE_LOCKFILE"); filename != "" {
++		return filename
++	}
++	return depsfile.LockFilePath
++}()
+ 
+ // lockedDependencies reads the dependency lock information from the default lock file location
+ // in the current working directory.

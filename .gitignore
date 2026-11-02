@@ -1,0 +1,7 @@
+result*
+.terraform-purifier/
+.terraform/
+*.tfstate
+*.tfstate.*
+__pycache__/
+*.pyc
