@@ -17,12 +17,12 @@
 stdenvNoCC.mkDerivation {
   pname = "terraform-purifier";
   version = "0.1.0";
-  src = ../.;
+  src = ../..;
   nativeBuildInputs = [ makeWrapper ];
   dontBuild = true;
   installPhase = ''
     mkdir -p "$out/bin" "$out/lib/terraform-purifier"
-    cp -r terraform_purifier nix "$out/lib/terraform-purifier/"
+    cp -r terraform_purifier nix lib-overlays pkgs "$out/lib/terraform-purifier/"
     install -m755 bin/terraform-purifier "$out/bin/terraform-purifier"
     substituteInPlace "$out/lib/terraform-purifier/nix/realize.nix" \
       --replace-fail '@nixpkgs@' '${nixpkgsSrc}' \

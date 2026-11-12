@@ -16,8 +16,8 @@ let
     lockFile = /. + lockFile;
     terraformLock = /. + terraformLock;
   };
-  result = pkgs.callPackage ./build-project.nix { inherit purifier nativeTool; } args;
-  read = import ./read-lock.nix { inherit (pkgs) lib; } args;
+  result = pkgs.callPackage ../pkgs/build-terraform-project/default.nix { inherit purifier nativeTool; } args;
+  read = import ../lib-overlays/default/read-lock.nix { inherit (pkgs) lib; } args;
   oldData = builtins.fromJSON (builtins.readFile lockFile);
   oldModules =
     assert
@@ -27,7 +27,7 @@ let
         == builtins.hashString "sha256" (builtins.toJSON (removeAttrs oldData [ "contentHash" ]));
     purifier.tree {
       name = "terraform-module-pins";
-      entries = import ./module-entries.nix oldData.modules;
+      entries = import ../lib-overlays/default/module-entries.nix oldData.modules;
       inherit (pkgs) runCommand fetchgit;
     };
 in
@@ -38,7 +38,7 @@ if target == "dependencies" then
   assert
     checked.toolVersion == nativeTool.version
     || throw "terraform-purifier: lock needs tool version ${checked.toolVersion}, but this scope delivers ${nativeTool.version}; run terraform-purifier lock with the intended toolchain";
-  pkgs.callPackage ./dependencies.nix { inherit purifier; } { lock = checked; }
+  pkgs.callPackage ../pkgs/build-terraform-project/dependencies.nix { inherit purifier; } { lock = checked; }
 else if target == "modules" then
   oldModules
 else if target == "runtime" then
