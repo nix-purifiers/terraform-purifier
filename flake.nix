@@ -22,11 +22,11 @@
       overlay = final: prev: {
         terraform-purifier = final.lib.makeScope final.newScope (scope: {
           nativeTool = scope.callPackage ./nix/native-tool.nix { };
-          cli = scope.callPackage ./nix/cli.nix {
+          cli = scope.callPackage ./pkgs/terraform-purifier/default.nix {
             nixpkgsSrc = nixpkgs;
             purifierSrc = purifier;
           };
-          buildTerraformProject = scope.callPackage ./nix/build-project.nix { purifier = shared final.lib; };
+          buildTerraformProject = scope.callPackage ./pkgs/build-terraform-project/default.nix { purifier = shared final.lib; };
         });
       };
       pkgsFor =
@@ -39,7 +39,7 @@
     in
     {
       overlays.default = overlay;
-      lib.terraform-purifier.readLock = import ./nix/read-lock.nix { lib = nixpkgs.lib; };
+      lib.terraform-purifier = import ./lib-overlays/default { lib = nixpkgs.lib; };
       packages = forAll (system: {
         default = (pkgsFor system).terraform-purifier.cli;
         cli = self.packages.${system}.default;
